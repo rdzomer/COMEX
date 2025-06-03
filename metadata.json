@@ -1,0 +1,5 @@
+{
+  "name": "Comex Stat NCM Analyzer",
+  "description": "A web application to analyze Brazilian international trade data (Comex Stat) for a specific NCM code. It displays historical data, charts, and allows users to upload supplementary Excel files for further analysis.",
+  "requestFramePermissions": []
+}
