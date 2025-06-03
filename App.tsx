@@ -1,38 +1,41 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
-import NcmInput from './components/NcmInput';
-import InfoDisplay from './components/InfoDisplay';
-import DataTable from './components/DataTable';
-import SimpleBarChart from './components/charts/SimpleBarChart';
-import SimpleLineChart from './components/charts/SimpleLineChart';
-import CombinedTradeBalanceChart from './components/charts/CombinedTradeBalanceChart';
-import FileUpload from './components/FileUpload';
-import Section from './components/Section';
+import NcmInput from './components/NcmInput.tsx';
+import InfoDisplay from './components/InfoDisplay.tsx';
+import DataTable from './components/DataTable.tsx';
+import SimpleBarChart from './components/charts/SimpleBarChart.tsx';
+import SimpleLineChart from './components/charts/SimpleLineChart.tsx';
+import CombinedTradeBalanceChart from './components/charts/CombinedTradeBalanceChart.tsx';
+import FileUpload from './components/FileUpload.tsx';
+import Section from './components/Section.tsx';
 
+// Service imports
 import { 
   fetchLastUpdateData, 
   fetchNcmDescription, 
   fetchNcmUnit, 
   fetchComexData,
   fetchCountryData
-} from './services/comexApiService';
+} from './services/comexApiService.ts'; // This import path seems correct with .ts
 import { 
   parseCgimDinteExcelForFiltering,
   parseNfeExcel
-} from './services/excelService';
+} from './services/excelService.ts';
+// Utility imports
 import { 
   processAnnualTradeData,
   createYearSummary,
   processNfeSalesData,
   processNfeCnaData,
   ensureVendasInternas
-} from './utils/dataProcessing';
-import { formatIntegerPtBR, formatDecimalPtBR, formatNcmCode } from './utils/formatting';
+} from './utils/dataProcessing.ts';
+import { formatIntegerPtBR, formatDecimalPtBR, formatNcmCode } from './utils/formatting.ts';
+// Type imports
 import { 
   LastUpdateData, NcmDetails, ProcessedTradeData, ComexStatRecord, ApiFilter, Period, 
   CountryDataRecord, ChartDataPoint, CgimNcmInfo, EntityContactInfo, NfeData,
   YearSummaryData, FormattedNfeSalesData, FormattedNfeCnaData
-} from './types';
+} from './types.ts';
 
 const App: React.FC = () => {
   const [ncmCode, setNcmCode] = useState<string | null>(null);
@@ -548,7 +551,7 @@ const App: React.FC = () => {
       
       {ncmCode && !loading && combinedTradeData.length === 0 && !historicalTradeData.length && !currentYearTradeData.length && (
          <div className="text-center p-10 bg-white shadow-lg rounded-lg">
-          <p className="text-xl text-red-500">Nenhum dado encontrado para o NCM {formatNcmCode(ncmCode)} nos registros do Comex Stat.</p>
+          <p className="text-xl text-red-500">Nenhum dado encontrado para o NCM ${formatNcmCode(ncmCode)} nos registros do Comex Stat.</p>
           <p className="text-gray-600 mt-2">Verifique se o código NCM está correto ou tente outro código.</p>
         </div>
       )}
